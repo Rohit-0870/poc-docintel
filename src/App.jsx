@@ -1,22 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { defaultConfig } from "./config/uiConfig";
 import { extractedData } from "./data/dummyData";
 
 export default function App({ config = defaultConfig }) {
   const [theme, setTheme] = useState(config.theme || "light");
+  const rootRef = useRef(null);
   const [page, setPage] = useState("upload");
 
   useEffect(() => {
-    document.documentElement.className = theme;
-    document.documentElement.style.setProperty(
+    if (!rootRef.current) return;
+
+    rootRef.current.className =
+      theme === "dark" ? "dark" : "";
+
+    rootRef.current.style.setProperty(
       "--brand-color",
       config.brandColor || "#6366f1"
     );
   }, [theme]);
 
   return (
-    <div className="w-full h-full bg-bg text-text p-6 space-y-6">
-
+    <div
+      ref={rootRef}
+      className="w-full h-full bg-bg text-text p-6 space-y-6"
+    >
       <header className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-brand">
           {config.labels.title}
