@@ -3,12 +3,20 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
-// SDK embed mode
+let embeddedRoot = null;
+
+// SDK embed mode (MagicHub)
 window.DocumentIntelUI = {
   mount(el, config) {
     if (!el) return;
 
-    ReactDOM.createRoot(el).render(
+    // Create root once
+    if (!embeddedRoot) {
+      embeddedRoot = ReactDOM.createRoot(el);
+    }
+
+    // Re-render with new config (reactive updates!)
+    embeddedRoot.render(
       <React.StrictMode>
         <App config={config} />
       </React.StrictMode>
@@ -16,12 +24,11 @@ window.DocumentIntelUI = {
   },
 };
 
-// Standalone mode (Vercel/local)
-const root = document.getElementById("root");
+// Standalone mode (local + Vercel)
+const standaloneRoot = document.getElementById("root");
 
-// Auto mount ONLY when no one else mounted it
-if (root && !root.hasChildNodes()) {
-  ReactDOM.createRoot(root).render(
+if (standaloneRoot && !standaloneRoot.hasChildNodes()) {
+  ReactDOM.createRoot(standaloneRoot).render(
     <React.StrictMode>
       <App />
     </React.StrictMode>
