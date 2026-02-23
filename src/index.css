@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+:root {
+  --brand-color: #6366f1;
+  --bg-color: #f9fafb;
+  --text-color: #111827;
+  --card-color: #ffffff;
+}
+
+.dark {
+  --brand-color: #22d3ee;
+  --bg-color: #020617;
+  --text-color: #f8fafc;
+  --card-color: #0f172a;
+}
