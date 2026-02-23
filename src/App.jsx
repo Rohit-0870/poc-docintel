@@ -4,6 +4,7 @@ import { extractedData } from "./data/dummyData";
 
 export default function App({ config = defaultConfig }) {
   const [theme, setTheme] = useState(config.theme);
+  const [page, setPage] = useState("upload");
 
   useEffect(() => {
     document.documentElement.className = theme;
@@ -13,29 +14,57 @@ export default function App({ config = defaultConfig }) {
     );
   }, [theme]);
 
+  const go = (route) => {
+    setPage(route);
+    config.onNavigate?.(route); // notify MagicHub if needed
+  };
+
   return (
-    <div className="min-h-screen bg-bg text-text p-6 transition-all">
-      <div className="max-w-4xl mx-auto space-y-6">
+    <div className="min-h-screen bg-bg text-text p-6">
 
-        <header className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-brand">
-            {config.labels.title}
-          </h1>
+      <header className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold text-brand">
+          {config.labels.title}
+        </h1>
 
+        <div className="space-x-2">
           <button
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-            className="px-4 py-2 rounded-lg bg-brand text-white"
+            className="px-4 py-2 rounded bg-brand text-white"
           >
-            Toggle Theme
+            Theme
           </button>
-        </header>
 
+          <button
+            onClick={() => go("upload")}
+            className="px-3 py-2 border rounded"
+          >
+            Upload
+          </button>
+
+          <button
+            onClick={() => go("results")}
+            className="px-3 py-2 border rounded"
+          >
+            Results
+          </button>
+        </div>
+      </header>
+
+      {/* Pages */}
+
+      {page === "upload" && (
         <div className="bg-card p-6 rounded-xl shadow">
-          <button className="border-2 border-dashed w-full p-10 rounded-lg text-center hover:border-brand transition">
+          <button
+            onClick={() => go("results")}
+            className="border-2 border-dashed w-full p-12 rounded-lg hover:border-brand transition"
+          >
             📄 {config.labels.upload}
           </button>
         </div>
+      )}
 
+      {page === "results" && (
         <div className="bg-card p-6 rounded-xl shadow">
           <h2 className="font-semibold mb-4">
             {config.labels.extracted}
@@ -45,7 +74,7 @@ export default function App({ config = defaultConfig }) {
             {extractedData.map((item) => (
               <div
                 key={item.field}
-                className="p-4 border rounded-lg hover:border-brand transition"
+                className="p-4 border rounded-lg"
               >
                 <p className="text-sm opacity-70">{item.field}</p>
                 <p className="font-semibold">{item.value}</p>
@@ -53,8 +82,7 @@ export default function App({ config = defaultConfig }) {
             ))}
           </div>
         </div>
-
-      </div>
+      )}
     </div>
   );
 }
