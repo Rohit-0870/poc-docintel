@@ -3,10 +3,12 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
-// SDK mode (for MagicHub)
 window.DocumentIntelUI = {
-  mount(el, config) {
-    if (!el) return;
+  mount: (el, config) => {
+    if (!el) {
+      console.error("Mount element not provided");
+      return;
+    }
 
     ReactDOM.createRoot(el).render(
       <React.StrictMode>
@@ -15,14 +17,3 @@ window.DocumentIntelUI = {
     );
   },
 };
-
-// Local dev mode
-const localRoot = document.getElementById("root");
-
-if (localRoot && !window.__DOC_INTEL_SDK__) {
-  ReactDOM.createRoot(localRoot).render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
-}
