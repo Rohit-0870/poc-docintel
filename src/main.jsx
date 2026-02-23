@@ -4,8 +4,11 @@ import App from "./App";
 import "./index.css";
 
 window.DocumentIntelUI = {
-  mount(el, config) {
-    if (!el) return;
+  mount: (el, config) => {
+    if (!el) {
+      console.error("Mount element not provided");
+      return;
+    }
 
     ReactDOM.createRoot(el).render(
       <React.StrictMode>
