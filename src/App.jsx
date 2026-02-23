@@ -13,7 +13,7 @@ export default function App({ config = defaultConfig }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
 
-  // 🔁 react to MagicHub config changes
+  // 🔁 react to MagicHub updates
   useEffect(() => {
     if (!config) return;
 
@@ -22,7 +22,7 @@ export default function App({ config = defaultConfig }) {
     setBrandColor(config.brandColor);
   }, [config]);
 
-  // 🎨 apply scoped theming
+  // 🎨 scoped theming
   useEffect(() => {
     if (!rootRef.current) return;
 
@@ -89,7 +89,7 @@ export default function App({ config = defaultConfig }) {
             {labels.extracted}
           </h2>
 
-          {loading && <p>Loading data...</p>}
+          {loading && <p>Loading...</p>}
 
           {!loading && (
             <div className="grid md:grid-cols-2 gap-4">
