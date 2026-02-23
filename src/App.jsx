@@ -3,26 +3,21 @@ import { defaultConfig } from "./config/uiConfig";
 import { extractedData } from "./data/dummyData";
 
 export default function App({ config = defaultConfig }) {
-  const [theme, setTheme] = useState(config.theme);
+  const [theme, setTheme] = useState(config.theme || "light");
   const [page, setPage] = useState("upload");
 
   useEffect(() => {
     document.documentElement.className = theme;
     document.documentElement.style.setProperty(
       "--brand-color",
-      config.brandColor
+      config.brandColor || "#6366f1"
     );
   }, [theme]);
 
-  const go = (route) => {
-    setPage(route);
-    config.onNavigate?.(route); // notify MagicHub if needed
-  };
-
   return (
-    <div className="min-h-screen bg-bg text-text p-6">
+    <div className="w-full h-full bg-bg text-text p-6 space-y-6">
 
-      <header className="flex justify-between items-center mb-6">
+      <header className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-brand">
           {config.labels.title}
         </h1>
@@ -30,20 +25,20 @@ export default function App({ config = defaultConfig }) {
         <div className="space-x-2">
           <button
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-            className="px-4 py-2 rounded bg-brand text-white"
+            className="px-3 py-2 rounded bg-brand text-white"
           >
             Theme
           </button>
 
           <button
-            onClick={() => go("upload")}
+            onClick={() => setPage("upload")}
             className="px-3 py-2 border rounded"
           >
             Upload
           </button>
 
           <button
-            onClick={() => go("results")}
+            onClick={() => setPage("results")}
             className="px-3 py-2 border rounded"
           >
             Results
@@ -51,12 +46,10 @@ export default function App({ config = defaultConfig }) {
         </div>
       </header>
 
-      {/* Pages */}
-
       {page === "upload" && (
         <div className="bg-card p-6 rounded-xl shadow">
           <button
-            onClick={() => go("results")}
+            onClick={() => setPage("results")}
             className="border-2 border-dashed w-full p-12 rounded-lg hover:border-brand transition"
           >
             📄 {config.labels.upload}
