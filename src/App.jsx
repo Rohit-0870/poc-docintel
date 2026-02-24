@@ -51,7 +51,7 @@ export default function App({ config = defaultConfig }) {
         <div className="space-x-2">
           <button
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-            className="px-3 py-2 rounded bg-brand text-white"
+            className="px-3 py-2 rounded bg-brand text-yellow-400"
           >
             Theme
           </button>
