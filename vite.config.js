@@ -7,10 +7,12 @@ export default defineConfig({
   plugins: [react(),  tailwindcss(),],
    build: {
     rollupOptions: {
-      input: {
-        main: "index.html",
-      },
-    },
-  },
+      output: {
+        entryFileNames: `cdn/app.js`,
+        chunkFileNames: `cdn/[name].js`,
+        assetFileNames: `cdn/[name].[ext]`
+      }
+    }
+  }
 });
 
