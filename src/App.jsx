@@ -213,7 +213,7 @@ const UploadPage = ({ labels, brandColor, onUpload, isProcessing }) => (
       <button
         onClick={onUpload}
         disabled={isProcessing}
-        className={`mt-4 px-8 py-3 rounded-full font-bold bg-white text-slate-900 shadow-xl hover:scale-105 active:scale-95 transition-transform ${isProcessing ? 'animate-pulse' : ''}`}
+        className={`mt-4 px-8 py-3 rounded-full font-bold bg-red-500 text-slate-900 shadow-xl hover:scale-105 active:scale-95 transition-transform ${isProcessing ? 'animate-pulse' : ''}`}
       >
         {isProcessing ? "Processing..." : "Select File to Start"}
       </button>
