@@ -218,7 +218,7 @@ const UploadPage = ({ labels, brandColor, onUpload, isProcessing }) => (
         {isProcessing ? "Processing..." : "Select File to Start"}
       </button>
     </div>
-    <p className="text-center text-xs opacity-50">Supported formats: PDF, PNG, JPG</p>
+    <p className="text-center text-xs opacity-50">Supported formats: PDF, PNG, JPG,image</p>
   </div>
 );
 
